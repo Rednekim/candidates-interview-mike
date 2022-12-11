@@ -1,0 +1,32 @@
+.customers {
+    header {
+        display: flex;
+        justify-content: flex-end;
+        padding: 0 15px;
+        margin-bottom: 10px;
+        div.col {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            button {
+                height: min-content;
+            }
+        }
+    }
+
+    .gender-icon-container {
+        width: 40px;
+        height: 40px;
+    }
+
+    .loading-icon {
+        animation: spin 1s infinite linear;
+        font-size: 25px;
+    }
+    @keyframes spin {
+        from {transform:rotate(0deg);}
+        to {transform:rotate(360deg);}
+    }
+}

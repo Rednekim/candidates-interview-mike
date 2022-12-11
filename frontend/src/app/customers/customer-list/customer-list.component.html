@@ -1,0 +1,80 @@
+<div class="customers view indent">
+  <div class="container">
+    <header class="row add-button-container">
+      <div class="col">
+        <h1>Customers ({{totalRecords}})</h1>
+        <button type="button" class="btn btn-primary" routerLink="/customers/0">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+        </button>
+      </div>
+    </header>
+    <div class="table-responsive" *ngIf="!loading && !error && customers;else loadingErrorTemplate">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Order Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let customer of customers">
+            <td>
+              <div [ngSwitch]="customer.gender" class="gender-icon-container">
+                <img class="img-responsive" *ngSwitchCase="'Female'" src="../../../assets/images/female.png"
+                  alt="Female" title="Female" />
+                <img class="img-responsive" *ngSwitchCase="'Male'" src="../../../assets/images/male.png" alt="Male"
+                  title="Male" />
+                <img class="img-responsive" *ngSwitchDefault src="../../../assets/images/people.png" alt="Gender"
+                  title="Gender" />
+              </div>
+            </td>
+            <td>{{customer.firstName}}</td>
+            <td>{{customer.lastName}}</td>
+            <td>{{customer.address}}</td>
+            <td>{{customer.city}}</td>
+            <td>{{customer.state?.name}}</td>
+            <td>{{customer.orderTotal| currency:'USD':'symbol':'.2-2'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+      <nav *ngIf="totalPages && totalPages > 1" aria-label="Page navigation">
+        <ul class="pagination">
+          <li>
+            <button type="button" class="btn btn-default" aria-label="Previous"
+              [disabled]="!pageNumber || pageNumber === 1" (click)="changePage(pageNumber - 1)">
+              <span aria-hidden="true">&laquo;</span>
+            </button>
+          </li>
+          <li *ngFor="let item of counter(totalPages); index as i">
+            <button type="button" class="btn btn-default" [ngClass]="{'active': pageNumber && pageNumber === i + 1}"
+              (click)="changePage(i + 1)">
+              {{i + 1}}</button>
+          </li>
+          <li>
+            <button type="button" class="btn btn-default" aria-label="Next"
+              [disabled]="!pageNumber || pageNumber === totalPages" (click)="changePage(pageNumber + 1)">
+              <span aria-hidden="true">&raquo;</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    <ng-template #loadingErrorTemplate>
+      <div *ngIf="loading && !error;else errorTemplate">
+        <div class="text-center">
+          <span class="glyphicon glyphicon-repeat loading-icon" aria-hidden="true"></span>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #errorTemplate>
+      <div class="text-center text-danger">
+        <span>Error while retrieving customer list...</span>
+      </div>
+    </ng-template>
+  </div>
+</div>

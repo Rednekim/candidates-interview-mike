@@ -1,0 +1,16 @@
+.customer {
+    .back-button-container {
+        margin: 10px 0;
+    }
+    .form-footer {
+        &-container {
+        display: flex;
+        justify-content: flex-end;
+        }
+        &-buttons-container {
+            display: flex;
+            align-items: center;
+            column-gap: 10px;
+        }
+    }
+}
